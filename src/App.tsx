@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Magnetic } from './components/Magnetic';
 import { SpotlightCard } from './components/SpotlightCard';
 import { 
   CheckCircle2, 
@@ -343,15 +342,13 @@ export default function App() {
 
               <div>
                 {upiStatus === 'idle' && (
-                  <Magnetic>
-                    <button 
-                      onClick={handleUpiPay}
-                      data-cursor="PAY ₹15,000"
-                      className="w-full bg-blue-600 text-white font-bold py-2.5 rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-[0_4px_15px_rgba(37,99,235,0.2)] flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
-                    >
-                      <span>⚡</span> Pay Advance Deposit
-                    </button>
-                  </Magnetic>
+                  <button 
+                    onClick={handleUpiPay}
+                    data-cursor="PAY ₹15,000"
+                    className="w-full bg-blue-600 text-white font-bold py-2.5 rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-[0_4px_15px_rgba(37,99,235,0.2)] flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
+                  >
+                    <span>⚡</span> Pay Advance Deposit
+                  </button>
                 )}
                 {upiStatus === 'loading' && (
                   <div className="w-full bg-slate-50 border-2 border-slate-100 text-slate-500 py-2 rounded-xl flex items-center justify-center gap-2">
@@ -580,26 +577,24 @@ export default function App() {
                           disabled={status === 'loading'}
                           className="flex-1 bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-3.5 text-black font-semibold placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
                         />
-                        <Magnetic>
-                          <motion.button
-                            type="submit"
-                            disabled={status === 'loading'}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            data-cursor="VOTE"
-                            className="bg-blue-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-md hover:bg-blue-700 transition-colors disabled:opacity-70 flex items-center justify-center min-w-[170px] cursor-pointer"
-                          >
-                            {status === 'loading' ? (
-                              <motion.div 
-                                animate={{ rotate: 360 }} 
-                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }} 
-                                className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full" 
-                              />
-                            ) : (
-                              'Cast Vote & View Blueprint'
-                            )}
-                          </motion.button>
-                        </Magnetic>
+                        <motion.button
+                          type="submit"
+                          disabled={status === 'loading'}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          data-cursor="VOTE"
+                          className="bg-blue-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-md hover:bg-blue-700 transition-colors disabled:opacity-70 flex items-center justify-center min-w-[170px] cursor-pointer"
+                        >
+                          {status === 'loading' ? (
+                            <motion.div 
+                              animate={{ rotate: 360 }} 
+                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }} 
+                              className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full" 
+                            />
+                          ) : (
+                            'Cast Vote & View Blueprint'
+                          )}
+                        </motion.button>
                       </form>
                       {status === 'error' && (
                         <p className="text-red-500 text-xs">Something went wrong. Please try again.</p>
@@ -676,15 +671,13 @@ export default function App() {
 
                 <div>
                   {signStatus === 'idle' && (
-                    <Magnetic>
-                      <button 
-                        onClick={handleSign}
-                        data-cursor="SIGN AGREEMENT"
-                        className="w-full border-2 border-dashed border-blue-200 hover:border-blue-400 bg-blue-50/10 text-blue-600 font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
-                      >
-                        <span>✍️</span> Click to Auto-Sign
-                      </button>
-                    </Magnetic>
+                    <button 
+                      onClick={handleSign}
+                      data-cursor="SIGN AGREEMENT"
+                      className="w-full border-2 border-dashed border-blue-200 hover:border-blue-400 bg-blue-50/10 text-blue-600 font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
+                    >
+                      <span>✍️</span> Click to Auto-Sign
+                    </button>
                   )}
                   {signStatus === 'loading' && (
                     <div className="w-full bg-slate-50 border-2 border-slate-100 text-slate-500 py-2 rounded-xl flex items-center justify-center gap-2">
@@ -949,15 +942,13 @@ export default function App() {
 
                 <div>
                   {whatsappStatus === 'idle' && (
-                    <Magnetic>
-                      <button 
-                        onClick={handleWhatsappSimulate}
-                        data-cursor="TEST ALERTS"
-                        className="w-full bg-emerald-600 text-white font-bold py-2.5 rounded-xl hover:bg-emerald-700 transition-all shadow-sm hover:shadow-[0_4px_15px_rgba(16,185,129,0.2)] flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
-                      >
-                        <span>💬</span> Test Live Notification
-                      </button>
-                    </Magnetic>
+                    <button 
+                      onClick={handleWhatsappSimulate}
+                      data-cursor="TEST ALERTS"
+                      className="w-full bg-emerald-600 text-white font-bold py-2.5 rounded-xl hover:bg-emerald-700 transition-all shadow-sm hover:shadow-[0_4px_15px_rgba(16,185,129,0.2)] flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
+                    >
+                      <span>💬</span> Test Live Notification
+                    </button>
                   )}
                   {whatsappStatus === 'loading' && (
                     <div className="w-full bg-slate-50 border-2 border-slate-100 text-slate-500 py-2 rounded-xl flex items-center justify-center gap-2">
