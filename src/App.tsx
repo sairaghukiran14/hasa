@@ -843,11 +843,7 @@ export default function App() {
             className="flex items-center"
           >
             {/* Custom SVG Clipboard Logo Icon */}
-            <svg className="w-6 h-6 text-blue-600 mr-2 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-              <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
-              <path d="m9 14 2 2 4-4" />
-            </svg>
+
             <span className="text-xl font-black tracking-tight text-black">
               Hasa<span className="text-blue-600">Board</span>
             </span>
@@ -895,29 +891,29 @@ export default function App() {
               className="md:hidden w-full bg-white border-t border-slate-100 shadow-lg overflow-hidden"
             >
               <div className="flex flex-col px-6 py-6 gap-4 text-sm font-semibold text-left">
-                <a 
-                  href="#problem" 
+                <a
+                  href="#problem"
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-black hover:text-blue-600 transition-colors py-2 border-b border-slate-50"
                 >
                   Problem
                 </a>
-                <a 
-                  href="#how-it-works" 
+                <a
+                  href="#how-it-works"
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-black hover:text-blue-600 transition-colors py-2 border-b border-slate-50"
                 >
                   How It Works
                 </a>
-                <a 
-                  href="#features" 
+                <a
+                  href="#features"
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-black hover:text-blue-600 transition-colors py-2 border-b border-slate-50"
                 >
                   Features
                 </a>
-                <a 
-                  href="#pricing" 
+                <a
+                  href="#pricing"
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-black hover:text-blue-600 transition-colors py-2 border-b border-slate-50"
                 >
