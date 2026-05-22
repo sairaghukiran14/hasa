@@ -16,7 +16,8 @@ import {
   X,
   Sparkles,
   ChevronLeft,
-  Palette
+  Palette,
+  Menu
 } from 'lucide-react';
 
 // Animation variants
@@ -100,7 +101,524 @@ const slideVariants = {
 // E.g. 'https://script.google.com/macros/s/AKfycb.../exec' or define VITE_GOOGLE_SHEETS_URL in your .env
 const GOOGLE_SHEETS_URL_FALLBACK = '';
 
+// --- WIDGET SUB-COMPONENTS FOR HIGH-FIDELITY RESPONSIVE REUSE ---
+
+interface UpiSimulatorProps {
+  upiStatus: 'idle' | 'loading' | 'success';
+  handleUpiPay: () => void;
+  setUpiStatus: (status: 'idle' | 'loading' | 'success') => void;
+}
+export function UpiSimulator({ upiStatus, handleUpiPay, setUpiStatus }: UpiSimulatorProps) {
+  return (
+    <div className="flex flex-col gap-3 bg-white/95 border-2 border-blue-100/60 p-4.5 rounded-3xl shadow-[0_15px_40px_rgba(37,99,235,0.06)] text-xs font-bold text-black backdrop-blur-md w-full select-none hover:border-blue-400 transition-colors duration-300 text-left">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center gap-1.5">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+          </span>
+          UPI Simulator
+        </span>
+        <span className="text-[9px] text-slate-400">Step 3/5</span>
+      </div>
+
+      <div className="space-y-1.5 py-1 text-left">
+        <div className="flex justify-between items-baseline">
+          <span className="text-[10px] text-slate-500 font-semibold">Project Advance</span>
+          <span className="text-base font-black text-black">₹15,000</span>
+        </div>
+        <div className="text-[9px] text-blue-600 bg-blue-50 px-2 py-0.5 rounded-lg inline-block">
+          Razorpay Secured
+        </div>
+      </div>
+
+      <div>
+        {upiStatus === 'idle' && (
+          <button
+            onClick={handleUpiPay}
+            data-cursor="PAY ₹15,000"
+            className="w-full bg-blue-600 px-2.5 text-white font-bold py-2.5 rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-[0_4px_15px_rgba(37,99,235,0.2)] flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
+          >
+            <span>⚡</span> Pay Advance Deposit
+          </button>
+        )}
+        {upiStatus === 'loading' && (
+          <div className="w-full bg-slate-50 border-2 border-slate-100 text-slate-500 py-2 rounded-xl flex items-center justify-center gap-2">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              className="w-3.5 h-3.5 border-2 border-slate-300 border-t-blue-600 rounded-full"
+            />
+            <span className="text-[10px] font-bold">Verifying UPI...</span>
+          </div>
+        )}
+        {upiStatus === 'success' && (
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-full bg-emerald-50 border border-emerald-250 text-emerald-800 p-2.5 rounded-xl text-center space-y-1.5 animate-once"
+          >
+            <div className="flex items-center justify-center gap-1 text-[11px] font-black text-emerald-700">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+              Payment Successful!
+            </div>
+            <div className="text-[9px] text-emerald-600 font-medium leading-none mb-1">
+              Receipt auto-sent to client.
+            </div>
+            <button
+              onClick={() => setUpiStatus('idle')}
+              className="text-[9px] text-emerald-600 font-bold block hover:underline w-full text-center pt-1.5 border-t border-emerald-200/40 cursor-pointer"
+            >
+              Test Again
+            </button>
+          </motion.div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+interface DocuSealTesterProps {
+  signStatus: 'idle' | 'loading' | 'success';
+  handleSign: () => void;
+  setSignStatus: (status: 'idle' | 'loading' | 'success') => void;
+}
+export function DocuSealTester({ signStatus, handleSign, setSignStatus }: DocuSealTesterProps) {
+  return (
+    <div className="flex flex-col gap-3 bg-white/95 border-2 border-blue-100/60 p-4.5 rounded-3xl shadow-[0_15px_40px_rgba(37,99,235,0.06)] text-xs font-bold text-black backdrop-blur-md w-full select-none hover:border-blue-400 transition-colors duration-300 text-left">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center gap-1.5">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-blue-600"></span>
+          </span>
+          DocuSeal Tester
+        </span>
+        <span className="text-[9px] text-slate-400">Step 2/5</span>
+      </div>
+
+      <div className="space-y-1 py-1 text-left">
+        <span className="text-[10px] text-slate-500 font-semibold block">Agreement Document</span>
+        <span className="text-xs font-bold text-black flex items-center gap-1.5 bg-slate-50 px-2.5 py-1.5 rounded-lg border border-slate-100">
+          <FileText className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
+          Service_Agreement.pdf
+        </span>
+      </div>
+
+      <div>
+        {signStatus === 'idle' && (
+          <button
+            onClick={handleSign}
+            data-cursor="SIGN AGREEMENT"
+            className="w-full border-2 border-dashed border-blue-200 hover:border-blue-400 bg-blue-50/10 text-blue-600 font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
+          >
+            <span>✍️</span> Click to Auto-Sign
+          </button>
+        )}
+        {signStatus === 'loading' && (
+          <div className="w-full bg-slate-50 border-2 border-slate-100 text-slate-500 py-2 rounded-xl flex items-center justify-center gap-2">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              className="w-3.5 h-3.5 border-2 border-slate-300 border-t-blue-600 rounded-full"
+            />
+            <span className="text-[10px] font-bold">Applying Signature...</span>
+          </div>
+        )}
+        {signStatus === 'success' && (
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-full bg-blue-50 border border-blue-200 text-blue-800 p-2.5 rounded-xl text-center space-y-1.5 animate-once"
+          >
+            <div className="text-[10px] font-black text-blue-800 leading-none">
+              Signed Electronically!
+            </div>
+            <div className="font-serif italic text-base text-blue-600 py-1 bg-white rounded-lg border border-blue-100 tracking-wide select-none shadow-[inset_0_2px_4px_rgba(37,99,235,0.03)] text-center">
+              Sairaghu K.
+            </div>
+            <span className="text-[8px] text-blue-600 font-semibold block uppercase tracking-wider mb-0.5">
+              Timestamp Secured 🔒
+            </span>
+            <button
+              onClick={() => setSignStatus('idle')}
+              className="text-[9px] text-blue-600 font-bold block hover:underline w-full text-center pt-1.5 border-t border-blue-200/40 cursor-pointer"
+            >
+              Test Again
+            </button>
+          </motion.div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+interface SecureFileVaultProps {
+  vaultStatus: 'idle' | 'loading' | 'success';
+  handleVaultUpload: () => void;
+  setVaultStatus: (status: 'idle' | 'loading' | 'success') => void;
+}
+export function SecureFileVault({ vaultStatus, handleVaultUpload, setVaultStatus }: SecureFileVaultProps) {
+  return (
+    <div className="flex flex-col gap-3 bg-white/95 border-2 border-blue-100/60 p-4.5 rounded-3xl shadow-[0_15px_40px_rgba(37,99,235,0.06)] text-xs font-bold text-black backdrop-blur-md w-full select-none hover:border-blue-400 transition-colors duration-300 text-left">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center gap-1.5">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-500"></span>
+          </span>
+          Secure File Vault
+        </span>
+        <span className="text-[9px] text-slate-400">Step 4/5</span>
+      </div>
+
+      <div className="space-y-1.5 py-1 text-left">
+        <span className="text-[10px] text-slate-500 font-semibold block">Requested Assets</span>
+        <div className="flex flex-col gap-1.5">
+          <div className="flex items-center gap-1.5 text-[10px] text-black">
+            <FolderSearch className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
+            <span>logo_vector.svg</span>
+          </div>
+          <div className="flex items-center gap-1.5 text-[10px] text-black">
+            <FolderSearch className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
+            <span>brand_guidelines.pdf</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        {vaultStatus === 'idle' && (
+          <button
+            onClick={handleVaultUpload}
+            className="w-full bg-slate-900 text-white font-bold py-2.5 rounded-xl hover:bg-black transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
+          >
+            <span>📁</span> Upload Brand Files
+          </button>
+        )}
+        {vaultStatus === 'loading' && (
+          <div className="w-full bg-slate-50 border-2 border-slate-100 p-2.5 rounded-xl space-y-1.5">
+            <div className="flex justify-between items-center text-[9px] text-slate-500">
+              <span className="font-bold">Encrypting files...</span>
+              <span>75%</span>
+            </div>
+            <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: "75%" }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                className="bg-blue-600 h-full"
+              />
+            </div>
+          </div>
+        )}
+        {vaultStatus === 'success' && (
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-full bg-amber-50 border border-amber-200 text-amber-900 p-2.5 rounded-xl text-center space-y-1.5 animate-once"
+          >
+            <div className="flex items-center justify-center gap-1 text-[11px] font-black text-amber-800">
+              <span>🔒</span> Vault Locked & Saved!
+            </div>
+            <div className="text-[9px] text-amber-700 font-medium leading-none mb-1">
+              Encrypted inside AES-256 vault.
+            </div>
+            <button
+              onClick={() => setVaultStatus('idle')}
+              className="text-[9px] text-amber-700 font-bold block hover:underline w-full text-center pt-1.5 border-t border-amber-200/40 cursor-pointer"
+            >
+              Test Again
+            </button>
+          </motion.div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+interface WhatsAppAlertHubProps {
+  whatsappStatus: 'idle' | 'loading' | 'success';
+  handleWhatsappSimulate: () => void;
+  setWhatsappStatus: (status: 'idle' | 'loading' | 'success') => void;
+}
+export function WhatsAppAlertHub({ whatsappStatus, handleWhatsappSimulate, setWhatsappStatus }: WhatsAppAlertHubProps) {
+  return (
+    <div className="flex flex-col gap-3 bg-white/95 border-2 border-emerald-100/60 p-4.5 rounded-3xl shadow-[0_15px_40px_rgba(16,185,129,0.05)] text-xs font-bold text-black backdrop-blur-md w-full select-none hover:border-emerald-400 transition-colors duration-300 text-left">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest flex items-center gap-1.5">
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+          </span>
+          WhatsApp Alert Hub
+        </span>
+        <span className="text-[9px] text-slate-400">Step 5/5</span>
+      </div>
+
+      <div className="space-y-1.5 py-1 text-left">
+        <span className="text-[10px] text-slate-500 font-semibold block">Client Notifications</span>
+        <div className="flex items-center gap-1.5 bg-emerald-50/40 border border-emerald-100/50 p-2 rounded-xl text-[9px] text-slate-500 font-medium">
+          <Bell className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
+          <span>Simulates live WhatsApp client check-ins.</span>
+        </div>
+      </div>
+
+      <div>
+        {whatsappStatus === 'idle' && (
+          <button
+            onClick={handleWhatsappSimulate}
+            data-cursor="TEST ALERTS"
+            className="w-full bg-emerald-600 text-white font-bold py-2.5 rounded-xl hover:bg-emerald-700 transition-all shadow-sm hover:shadow-[0_4px_15px_rgba(16,185,129,0.2)] flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
+          >
+            <span>💬</span> Test Live Notification
+          </button>
+        )}
+        {whatsappStatus === 'loading' && (
+          <div className="w-full bg-slate-50 border-2 border-slate-100 text-slate-500 py-2 rounded-xl flex items-center justify-center gap-2">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              className="w-3.5 h-3.5 border-2 border-slate-300 border-t-emerald-600 rounded-full"
+            />
+            <span className="text-[10px] font-bold">Routing Alert...</span>
+          </div>
+        )}
+        {whatsappStatus === 'success' && (
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            className="w-full bg-emerald-50 border border-emerald-250 text-emerald-950 p-2.5 rounded-xl text-left space-y-1.5 animate-once"
+          >
+            <div className="flex items-center justify-between text-[8px] text-emerald-700 uppercase tracking-wider font-extrabold">
+              <span>WhatsApp Biz 🔔</span>
+              <span>Just Now</span>
+            </div>
+            <p className="text-[10px] text-slate-800 leading-tight">
+              <strong className="text-emerald-800">HasaBoard:</strong> Rohan signed contract & paid ₹15,000 advance. Project kicked off automatically! 🚀
+            </p>
+            <button
+              onClick={() => setWhatsappStatus('idle')}
+              className="text-[9px] text-emerald-600 font-bold block hover:underline w-full text-center pt-1.5 border-t border-emerald-200/40 cursor-pointer"
+            >
+              Test Again
+            </button>
+          </motion.div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+interface ThemeCustomizerProps {
+  activeTheme: 'blue' | 'purple' | 'emerald' | 'indigo';
+  setActiveTheme: (theme: 'blue' | 'purple' | 'emerald' | 'indigo') => void;
+}
+export function ThemeCustomizer({ activeTheme, setActiveTheme }: ThemeCustomizerProps) {
+  return (
+    <div className="flex flex-col gap-3 bg-white/95 border-2 border-slate-100 p-4.5 rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.04)] text-xs font-bold text-black backdrop-blur-md w-full select-none hover:border-slate-300 transition-colors duration-300 text-left">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+          <Palette className="w-3.5 h-3.5 text-slate-500" />
+          Theme Customizer
+        </span>
+        <span className="text-[9px] text-slate-400">Preview</span>
+      </div>
+
+      <div className="space-y-1">
+        <span className="text-[10px] text-slate-500 font-semibold block">Brand Color Scheme</span>
+        <div className="flex gap-2 py-1 justify-start items-center">
+          {[
+            { id: 'blue', color: 'bg-blue-600' },
+            { id: 'purple', color: 'bg-purple-600' },
+            { id: 'emerald', color: 'bg-emerald-600' },
+            { id: 'indigo', color: 'bg-indigo-600' }
+          ].map(t => (
+            <button
+              key={t.id}
+              onClick={() => setActiveTheme(t.id as any)}
+              className={`w-5.5 h-5.5 rounded-full cursor-pointer transition-all duration-200 hover:scale-110 ${t.color} ${activeTheme === t.id ? 'ring-2 ring-offset-2 ring-slate-400' : ''}`}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className={`p-3 rounded-2xl border-2 transition-all duration-300 text-left ${activeTheme === 'blue' ? 'border-blue-100/60 bg-blue-50/20' :
+        activeTheme === 'purple' ? 'border-purple-100/60 bg-purple-50/20' :
+          activeTheme === 'emerald' ? 'border-emerald-100/60 bg-emerald-50/20' :
+            'border-indigo-100/60 bg-indigo-50/20'
+        }`}>
+        <div className="flex justify-between items-center mb-2">
+          <span className={`text-[9px] font-black uppercase tracking-wider ${activeTheme === 'blue' ? 'text-blue-600' :
+            activeTheme === 'purple' ? 'text-purple-600' :
+              activeTheme === 'emerald' ? 'text-emerald-600' :
+                'text-indigo-600'
+            }`}>
+            Client Portal
+          </span>
+          <div className={`w-1.5 h-1.5 rounded-full ${activeTheme === 'blue' ? 'bg-blue-600 animate-pulse' :
+            activeTheme === 'purple' ? 'bg-purple-600 animate-pulse' :
+              activeTheme === 'emerald' ? 'bg-emerald-600 animate-pulse' :
+                'bg-indigo-600 animate-pulse'
+            }`} />
+        </div>
+        <div className="space-y-0.5">
+          <div className="text-[10px] font-black text-black">Aria Design Studio</div>
+          <div className="text-[8px] text-slate-400 font-semibold">Project: Mobile App V2</div>
+        </div>
+        <div className="mt-3">
+          <div className={`w-full py-1.5 rounded-lg text-[9px] font-black text-center text-white transition-all duration-300 ${activeTheme === 'blue' ? 'bg-blue-600 hover:bg-blue-700 shadow-sm shadow-blue-100' :
+            activeTheme === 'purple' ? 'bg-purple-600 hover:bg-purple-700 shadow-sm shadow-purple-100' :
+              activeTheme === 'emerald' ? 'bg-emerald-600 hover:bg-emerald-700 shadow-sm shadow-emerald-100' :
+                'bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-100'
+            }`}>
+            Review & Sign
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface TaxEstimatorProps {
+  projectFee: number;
+  setProjectFee: (fee: number) => void;
+}
+export function TaxEstimator({ projectFee, setProjectFee }: TaxEstimatorProps) {
+  return (
+    <div className="flex flex-col gap-3.5 bg-white/95 border-2 border-blue-100/60 p-4.5 rounded-3xl shadow-[0_15px_40px_rgba(37,99,235,0.06)] text-xs font-bold text-black backdrop-blur-md w-full select-none hover:border-blue-400 transition-colors duration-300 text-left">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+        <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest flex items-center gap-1.5">
+          <PieChart className="w-3.5 h-3.5 text-blue-600" />
+          GST & TDS Calculator
+        </span>
+        <span className="text-[9px] text-slate-400">Indian Tax</span>
+      </div>
+
+      <div className="space-y-2">
+        <div className="flex justify-between items-center text-[10px] text-slate-500">
+          <span>Project Budget</span>
+          <span className="font-black text-black">₹{projectFee.toLocaleString('en-IN')}</span>
+        </div>
+        <input
+          type="range"
+          min="10000"
+          max="200000"
+          step="5000"
+          value={projectFee}
+          onChange={(e) => setProjectFee(Number(e.target.value))}
+          className="w-full accent-blue-600 h-1 bg-slate-100 rounded-lg cursor-pointer"
+        />
+        <div className="flex gap-1.5 mt-1.5">
+          {[20000, 50000, 100000].map(fee => (
+            <button
+              key={fee}
+              onClick={() => setProjectFee(fee)}
+              className={`flex-1 py-1 rounded-lg text-[9px] font-black border transition-all cursor-pointer ${projectFee === fee
+                ? 'bg-blue-600 border-blue-600 text-white shadow-sm shadow-blue-100'
+                : 'bg-white border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600'
+                }`}
+            >
+              ₹{(fee / 1000).toFixed(0)}K
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="space-y-1.5 pt-2 border-t border-slate-100">
+        <div className="flex justify-between items-center text-[9px]">
+          <span className="text-slate-400 font-semibold">18% GST (Collected)</span>
+          <span className="text-slate-600 font-bold">+₹{(projectFee * 0.18).toLocaleString('en-IN')}</span>
+        </div>
+        <div className="flex justify-between items-center text-[9px]">
+          <span className="text-slate-400 font-semibold">10% TDS (Deducted)</span>
+          <span className="text-slate-600 font-bold">-₹{(projectFee * 0.10).toLocaleString('en-IN')}</span>
+        </div>
+        <div className="flex justify-between items-center text-[9px] bg-blue-50/50 p-1.5 rounded-lg border border-blue-100/40">
+          <span className="text-blue-600 font-extrabold">50% Advance Retainer</span>
+          <span className="text-blue-600 font-black">₹{(projectFee * 0.50).toLocaleString('en-IN')}</span>
+        </div>
+        <div className="flex justify-between items-baseline pt-1.5 border-t border-dashed border-slate-200">
+          <span className="text-[10px] text-slate-800 font-bold">Net Take-Home</span>
+          <span className="text-xs font-black text-black">₹{(projectFee + (projectFee * 0.18) - (projectFee * 0.10)).toLocaleString('en-IN')}</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface ClientFeedbackRatingProps {
+  clientRating: number;
+  setClientRating: (rating: number) => void;
+}
+export function ClientFeedbackRating({ clientRating, setClientRating }: ClientFeedbackRatingProps) {
+  return (
+    <div className="flex flex-col gap-3.5 bg-white/95 border-2 border-slate-100 p-4.5 rounded-3xl shadow-[0_15px_40px_rgba(0,0,0,0.04)] text-xs font-bold text-black backdrop-blur-md w-full select-none hover:border-slate-300 transition-colors duration-300 text-left">
+      <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+        <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-1.5">
+          <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
+          Live Testimonials
+        </span>
+        <span className="text-[9px] text-slate-400">Interactive</span>
+      </div>
+
+      <div className="space-y-1">
+        <span className="text-[10px] text-slate-500 font-semibold block">Select Rating</span>
+        <div className="flex gap-1.5 justify-start">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <button
+              key={star}
+              onClick={() => setClientRating(star)}
+              className="text-amber-400 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer"
+            >
+              <Star
+                className="w-4.5 h-4.5"
+                fill={star <= clientRating ? "currentColor" : "none"}
+                strokeWidth={1.5}
+              />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-slate-50 border border-slate-100 p-3 rounded-2xl min-h-[90px] flex flex-col justify-between text-left">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={clientRating}
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.2 }}
+            className="space-y-1.5 flex-1 flex flex-col justify-between animate-once"
+          >
+            <p className="text-[9px] text-slate-600 font-bold italic leading-relaxed">
+              "{
+                clientRating === 5 ? "The absolute smoothest onboarding I've ever experienced. Paid my deposit via UPI in 30 seconds!" :
+                  clientRating === 4 ? "Really professional process. Highly recommend this over messy WhatsApp chats." :
+                    clientRating === 3 ? "Signing and paying advance was easy. Good overall client flow." :
+                      clientRating === 2 ? "It was okay, but I prefer simple emails." :
+                        "Too many steps. Let me just send a bank transfer."
+              }"
+            </p>
+            <div className="text-[8px] text-slate-400 font-extrabold pt-1 border-t border-slate-150">
+              — {
+                clientRating === 5 ? "Rohan S. (Founder, TechNext)" :
+                  clientRating === 4 ? "Nikita P. (VP Product, Aria)" :
+                    clientRating === 3 ? "Amit K. (Product Lead)" :
+                      clientRating === 2 ? "Suresh M. (Business Owner)" :
+                        "Vikram G. (Traditional Client)"
+              }
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
+
 export default function App() {
+  // Mobile navbar state
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   // Funnel State
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
@@ -324,6 +842,12 @@ export default function App() {
             transition={{ type: 'spring', stiffness: 100 }}
             className="flex items-center"
           >
+            {/* Custom SVG Clipboard Logo Icon */}
+            <svg className="w-6 h-6 text-blue-600 mr-2 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+              <path d="m9 14 2 2 4-4" />
+            </svg>
             <span className="text-xl font-black tracking-tight text-black">
               Hasa<span className="text-blue-600">Board</span>
             </span>
@@ -348,7 +872,68 @@ export default function App() {
               Start Diagnostic
             </motion.a>
           </motion.div>
+
+          {/* Mobile hamburger menu toggle */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-black hover:text-blue-600 transition-colors focus:outline-none cursor-pointer"
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Drawer Overlay */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="md:hidden w-full bg-white border-t border-slate-100 shadow-lg overflow-hidden"
+            >
+              <div className="flex flex-col px-6 py-6 gap-4 text-sm font-semibold text-left">
+                <a 
+                  href="#problem" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-black hover:text-blue-600 transition-colors py-2 border-b border-slate-50"
+                >
+                  Problem
+                </a>
+                <a 
+                  href="#how-it-works" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-black hover:text-blue-600 transition-colors py-2 border-b border-slate-50"
+                >
+                  How It Works
+                </a>
+                <a 
+                  href="#features" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-black hover:text-blue-600 transition-colors py-2 border-b border-slate-50"
+                >
+                  Features
+                </a>
+                <a 
+                  href="#pricing" 
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-black hover:text-blue-600 transition-colors py-2 border-b border-slate-50"
+                >
+                  Pricing
+                </a>
+                <a
+                  href="#waitlist"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="bg-blue-600 text-white px-5 py-3 rounded-xl font-bold shadow-sm shadow-blue-100 hover:bg-blue-700 transition-colors text-center mt-2"
+                >
+                  Start Diagnostic
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
 
       <main className="pt-32 relative">
