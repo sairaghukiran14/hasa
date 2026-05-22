@@ -252,8 +252,17 @@ export default function App() {
 
     const googleSheetsUrl = import.meta.env.VITE_GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL_FALLBACK;
 
+    console.log('--- Lead Submission Diagnostic ---');
+    console.log('Loaded Google Sheets URL:', googleSheetsUrl);
+    if (!googleSheetsUrl) {
+      console.warn(
+        '⚠️ VITE_GOOGLE_SHEETS_URL is empty! If you just added the .env file, you MUST stop and restart your terminal dev server (npm run dev) for Vite to load the environment variables.'
+      );
+    }
+
     // 2. Submit to Google Sheets Web App if configured (100% Free & Unlimited leads)
     if (googleSheetsUrl && googleSheetsUrl.trim() !== '') {
+      console.log('Sending payload to Google Sheets Web App:', leadData);
       try {
         await fetch(googleSheetsUrl.trim(), {
           method: 'POST',
@@ -263,11 +272,12 @@ export default function App() {
           },
           body: JSON.stringify(leadData)
         });
+        console.log('Submission completed (mode: no-cors).');
         setStatus('success');
         setStep(5);
         return;
       } catch (error) {
-        console.error('Google Sheets submission failed:', error);
+        console.error('Google Sheets submission failed with network error:', error);
         setStatus('error');
         return;
       }
@@ -275,7 +285,7 @@ export default function App() {
 
     // 3. Default Fallback: Simulate success if Google Sheet URL is not configured
     console.warn(
-      'Google Sheets URL is not configured. Leads are saving exclusively to localStorage.'
+      'Google Sheets URL is not configured. Saving exclusively to localStorage fallback.'
     );
     await new Promise(resolve => setTimeout(resolve, 1500));
     setStatus('success');
