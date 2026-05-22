@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SpotlightCard } from './components/SpotlightCard';
-import { 
-  CheckCircle2, 
-  MessageCircle, 
-  FileText, 
-  CreditCard, 
-  FolderSearch, 
+import {
+  CheckCircle2,
+  MessageCircle,
+  FileText,
+  CreditCard,
+  FolderSearch,
   Clock,
   MonitorSmartphone,
   PieChart,
@@ -22,40 +22,40 @@ import {
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { type: 'spring' as const, stiffness: 100, damping: 15 } 
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring' as const, stiffness: 100, damping: 15 }
   }
 };
 
 const widgetRevealLeft = {
   hidden: { opacity: 0, x: -80, filter: 'blur(8px)' },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
+  visible: {
+    opacity: 1,
+    x: 0,
     filter: 'blur(0px)',
-    transition: { 
-      type: 'spring' as const, 
-      stiffness: 70, 
+    transition: {
+      type: 'spring' as const,
+      stiffness: 70,
       damping: 16,
       duration: 0.8
-    } 
+    }
   }
 };
 
 const widgetRevealRight = {
   hidden: { opacity: 0, x: 80, filter: 'blur(8px)' },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
+  visible: {
+    opacity: 1,
+    x: 0,
     filter: 'blur(0px)',
-    transition: { 
-      type: 'spring' as const, 
-      stiffness: 70, 
+    transition: {
+      type: 'spring' as const,
+      stiffness: 70,
       damping: 16,
       duration: 0.8
-    } 
+    }
   }
 };
 
@@ -71,10 +71,10 @@ const staggerContainer = {
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
-    scale: 1, 
-    transition: { type: 'spring' as const, stiffness: 120, damping: 14 } 
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { type: 'spring' as const, stiffness: 120, damping: 14 }
   }
 };
 
@@ -226,7 +226,7 @@ export default function App() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('loading');
-    
+
     const leadData = {
       email,
       discipline,
@@ -262,11 +262,11 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#fcfcfd] bg-grid-pattern text-slate-800 font-sans selection:bg-blue-100 selection:text-blue-900 overflow-x-hidden relative">
-      
+
       {/* Navbar */}
       <nav className="fixed top-0 w-full z-50 border-b border-slate-100 bg-white/80 backdrop-blur-md">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ type: 'spring', stiffness: 100 }}
@@ -276,8 +276,8 @@ export default function App() {
               Hasa<span className="text-blue-600">Board</span>
             </span>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ type: 'spring', stiffness: 100 }}
@@ -287,10 +287,10 @@ export default function App() {
             <a href="#how-it-works" className="text-black hover:text-blue-600 transition-colors">How It Works</a>
             <a href="#features" className="text-black hover:text-blue-600 transition-colors">Features</a>
             <a href="#pricing" className="text-black hover:text-blue-600 transition-colors">Pricing</a>
-            <motion.a 
+            <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="#waitlist" 
+              href="#waitlist"
               className="bg-blue-600 text-white px-5 py-2 rounded-xl font-bold shadow-sm shadow-blue-100 hover:bg-blue-700 transition-colors"
             >
               Start Diagnostic
@@ -303,7 +303,7 @@ export default function App() {
         {/* Ambient Light Glowing Orbs for visual depth */}
         <div className="absolute top-[-50px] left-[5%] w-[45vw] h-[45vw] max-w-[480px] rounded-full bg-blue-100/30 blur-[130px] -z-10 pointer-events-none" />
         <div className="absolute top-[80px] right-[5%] w-[40vw] h-[40vw] max-w-[380px] rounded-full bg-blue-50/20 blur-[110px] -z-10 pointer-events-none" />
-        
+
         {/* Constraint wrapper to guarantee widgets remain in side white spaces and never overlap content */}
         <div className="max-w-[1400px] mx-auto relative w-full px-6">
           {/* Interactive Floating Sandbox Widgets - Hero Section (UPI Simulator Only) */}
@@ -342,26 +342,26 @@ export default function App() {
 
               <div>
                 {upiStatus === 'idle' && (
-                  <button 
+                  <button
                     onClick={handleUpiPay}
                     data-cursor="PAY ₹15,000"
-                    className="w-full bg-blue-600 text-white font-bold py-2.5 rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-[0_4px_15px_rgba(37,99,235,0.2)] flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
+                    className="w-full bg-blue-600 px-2.5 text-white font-bold py-2.5 rounded-xl hover:bg-blue-700 transition-all shadow-sm hover:shadow-[0_4px_15px_rgba(37,99,235,0.2)] flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
                   >
                     <span>⚡</span> Pay Advance Deposit
                   </button>
                 )}
                 {upiStatus === 'loading' && (
                   <div className="w-full bg-slate-50 border-2 border-slate-100 text-slate-500 py-2 rounded-xl flex items-center justify-center gap-2">
-                    <motion.div 
-                      animate={{ rotate: 360 }} 
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }} 
-                      className="w-3.5 h-3.5 border-2 border-slate-300 border-t-blue-600 rounded-full" 
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      className="w-3.5 h-3.5 border-2 border-slate-300 border-t-blue-600 rounded-full"
                     />
                     <span className="text-[10px] font-bold">Verifying UPI...</span>
                   </div>
                 )}
                 {upiStatus === 'success' && (
-                  <motion.div 
+                  <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     className="w-full bg-emerald-50 border border-emerald-250 text-emerald-800 p-2.5 rounded-xl text-center space-y-1.5"
@@ -373,7 +373,7 @@ export default function App() {
                     <div className="text-[9px] text-emerald-600 font-medium leading-none mb-1">
                       Receipt auto-sent to client.
                     </div>
-                    <button 
+                    <button
                       onClick={() => setUpiStatus('idle')}
                       className="text-[9px] text-emerald-600 font-bold block hover:underline w-full text-center pt-1.5 border-t border-emerald-200/40 cursor-pointer"
                     >
@@ -384,259 +384,259 @@ export default function App() {
               </div>
             </motion.div>
           </motion.div>
- 
-        {/* Hero Section */}
-        <section className="text-center max-w-3xl mx-auto pb-24 relative z-10">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={fadeInUp}
-            className="flex flex-col items-center"
-          >
-            <motion.div 
-              whileHover={{ scale: 1.03 }}
-              data-cursor="CO-DESIGN"
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border-2 border-blue-100 bg-blue-50/20 text-xs font-extrabold shadow-[0_3px_15px_rgba(37,99,235,0.02)] mb-8 cursor-pointer select-none transition-all duration-300 hover:border-blue-300"
+
+          {/* Hero Section */}
+          <section className="text-center max-w-3xl mx-auto pb-24 relative z-10">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={fadeInUp}
+              className="flex flex-col items-center"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
-              </span>
-              <span className="text-black font-semibold">Shape HasaBoard</span>
-              <span className="text-blue-600 font-bold border-l border-blue-100 pl-2">Co-Design Campaign</span>
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                data-cursor="CO-DESIGN"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border-2 border-blue-100 bg-blue-50/20 text-xs font-extrabold shadow-[0_3px_15px_rgba(37,99,235,0.02)] mb-8 cursor-pointer select-none transition-all duration-300 hover:border-blue-300"
+              >
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+                </span>
+                <span className="text-black font-semibold">Shape HasaBoard</span>
+                <span className="text-blue-600 font-bold border-l border-blue-100 pl-2">Co-Design Campaign</span>
+              </motion.div>
+
+              <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-8 text-black leading-[1.1] max-w-3xl mx-auto">
+                Stop chasing clients.<br />
+                <span className="relative inline-block mt-3">
+                  <span className="absolute -inset-x-4 -inset-y-1.5 rounded-2xl bg-blue-50/80 border border-blue-100/50 -rotate-0.5 -z-10 shadow-[0_4px_25px_rgba(37,99,235,0.03)]" />
+                  <span className="text-blue-600 px-6 font-black">Onboard with one link.</span>
+                </span>
+              </h1>
+
+              <p className="text-lg md:text-xl text-black font-medium mb-10 max-w-2xl mx-auto leading-relaxed">
+                We're co-designing HasaBoard — India's first client onboarding platform built specifically for freelancers. Identify your major friction bottlenecks, instantly unlock your <span className="text-blue-600 font-extrabold underline decoration-blue-200 decoration-wavy underline-offset-4">Onboarding Blueprint</span>, and vote to bring this tool to life.
+              </p>
             </motion.div>
-            
-            <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-8 text-black leading-[1.1] max-w-3xl mx-auto">
-              Stop chasing clients.<br />
-              <span className="relative inline-block mt-3">
-                <span className="absolute -inset-x-4 -inset-y-1.5 rounded-2xl bg-blue-50/80 border border-blue-100/50 -rotate-0.5 -z-10 shadow-[0_4px_25px_rgba(37,99,235,0.03)]" />
-                <span className="text-blue-600 px-6 font-black">Onboard with one link.</span>
-              </span>
-            </h1>
-            
-            <p className="text-lg md:text-xl text-black font-medium mb-10 max-w-2xl mx-auto leading-relaxed">
-              We're co-designing HasaBoard — India's first client onboarding platform built specifically for freelancers. Identify your major friction bottlenecks, instantly unlock your <span className="text-blue-600 font-extrabold underline decoration-blue-200 decoration-wavy underline-offset-4">Onboarding Blueprint</span>, and vote to bring this tool to life.
-            </p>
-          </motion.div>
 
-          {/* Interactive Lead Generation Funnel Card */}
-          <motion.div 
-            initial="hidden"
-            animate="visible"
-            variants={scaleIn}
-            className="max-w-xl mx-auto glass-panel bg-white border border-slate-200/80 p-6 md:p-8 shadow-xl shadow-slate-100 rounded-3xl relative overflow-hidden"
-          >
-            {/* Header step trackers */}
-            {step < 5 && (
-              <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
-                <div className="flex items-center gap-2">
-                  {step > 1 && (
-                    <button 
-                      onClick={handleBackStep}
-                      className="p-1 rounded-lg hover:bg-slate-50 transition-colors text-black hover:text-blue-600"
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </button>
-                  )}
-                  <span className="text-xs font-extrabold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100/40">
-                    Step {step} of 4
-                  </span>
-                </div>
-                <div className="flex gap-1.5">
-                  {[1, 2, 3, 4].map(s => (
-                    <div 
-                      key={s} 
-                      className={`w-6 h-1 rounded-full transition-all duration-300 ${s <= step ? 'bg-blue-600' : 'bg-slate-100'}`} 
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div className="min-h-[220px] flex flex-col justify-center text-left">
-              <AnimatePresence custom={direction} mode="wait">
-                {step === 1 && (
-                  <motion.div
-                    key="step1"
-                    custom={direction}
-                    variants={slideVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    className="space-y-4"
-                  >
-                    <h3 className="text-lg font-black text-black">What is your freelance discipline?</h3>
-                    <div className="grid grid-cols-2 gap-3 pt-2">
-                      {[
-                        { id: 'design', label: '🎨 Design / UI-UX' },
-                        { id: 'development', label: '💻 Development' },
-                        { id: 'writing', label: '✍️ Writing & Content' },
-                        { id: 'marketing', label: '📣 Marketing & Strategy' }
-                      ].map(option => (
-                        <button
-                          key={option.id}
-                          onClick={() => handleNextStep(option.id, setDiscipline)}
-                          className="p-4 rounded-2xl border-2 border-slate-100/80 text-left font-bold text-black hover:border-blue-600 hover:bg-blue-50/20 active:bg-blue-50/50 transition-all duration-200 text-sm md:text-base shadow-sm hover:shadow-[0_8px_25px_rgba(37,99,235,0.04)] cursor-pointer"
-                        >
-                          {option.label}
-                        </button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-
-                {step === 2 && (
-                  <motion.div
-                    key="step2"
-                    custom={direction}
-                    variants={slideVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    className="space-y-4"
-                  >
-                    <h3 className="text-lg font-black text-black">What is your biggest onboarding bottleneck?</h3>
-                    <div className="grid grid-cols-1 gap-2.5 pt-2">
-                      {[
-                        { id: 'payments', label: '💸 Chasing upfront deposit payments' },
-                        { id: 'briefs', label: '📄 Getting clear brief briefs & answers' },
-                        { id: 'contracts', label: '✍️ Getting contract signatures back' },
-                        { id: 'assets', label: '📂 Hunting down client brand files & logos' }
-                      ].map(option => (
-                        <button
-                          key={option.id}
-                          onClick={() => handleNextStep(option.id, setBottleneck)}
-                          className="p-4 rounded-2xl border-2 border-slate-100/80 text-left font-bold text-black hover:border-blue-600 hover:bg-blue-50/20 active:bg-blue-50/50 transition-all duration-200 text-sm md:text-base w-full shadow-sm hover:shadow-[0_8px_25px_rgba(37,99,235,0.04)] cursor-pointer"
-                        >
-                          {option.label}
-                        </button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-
-                {step === 3 && (
-                  <motion.div
-                    key="step3"
-                    custom={direction}
-                    variants={slideVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    className="space-y-4"
-                  >
-                    <h3 className="text-lg font-black text-black">How many clients do you onboard monthly?</h3>
-                    <div className="grid grid-cols-3 gap-3 pt-2">
-                      {[
-                        { id: '1-2', label: '1 - 2' },
-                        { id: '3-5', label: '3 - 5' },
-                        { id: '6+', label: '6 or more' }
-                      ].map(option => (
-                        <button
-                          key={option.id}
-                          onClick={() => handleNextStep(option.id, setVolume)}
-                          className="p-4 rounded-2xl border-2 border-slate-100/80 text-center font-black text-black hover:border-blue-600 hover:bg-blue-50/20 active:bg-blue-50/50 transition-all duration-200 text-base shadow-sm hover:shadow-[0_8px_25px_rgba(37,99,235,0.04)] cursor-pointer"
-                        >
-                          {option.label}
-                        </button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-
-                {step === 4 && (
-                  <motion.div
-                    key="step4"
-                    custom={direction}
-                    variants={slideVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    className="space-y-6"
-                  >
-                    <div className="bg-blue-50/80 border border-blue-100 p-5 rounded-2xl text-left shadow-sm">
-                      <h4 className="font-black text-blue-600 text-lg mb-1.5 flex items-center gap-1.5">
-                        <span>⚡</span> Your Friction Report
-                      </h4>
-                      <p className="text-sm text-black font-semibold leading-relaxed">
-                        Based on onboarding <span className="text-blue-600 font-extrabold">{volume} clients</span> monthly, you are losing up to <span className="text-blue-600 font-extrabold underline decoration-blue-300 decoration-wavy underline-offset-2">{calculateHoursSaved()} hours</span> every month on administrative friction. Help us build the solution to eliminate this!
-                      </p>
-                    </div>
-                    
-                    <div className="space-y-4 text-left">
-                      <h3 className="text-sm md:text-base font-black text-black leading-tight">
-                        Cast your vote to build <span className="text-blue-600">HasaBoard</span>, unlock your custom <span className="text-blue-600">Blueprint</span>, & get 3 months free!
-                      </h3>
-                      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-                        <input
-                          type="email"
-                          required
-                          value={email}
-                          onChange={(e) => setEmail(e.target.value)}
-                          placeholder="you@email.com"
-                          disabled={status === 'loading'}
-                          className="flex-1 bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-3.5 text-black font-semibold placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
-                        />
-                        <motion.button
-                          type="submit"
-                          disabled={status === 'loading'}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          data-cursor="VOTE"
-                          className="bg-blue-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-md hover:bg-blue-700 transition-colors disabled:opacity-70 flex items-center justify-center min-w-[170px] cursor-pointer"
-                        >
-                          {status === 'loading' ? (
-                            <motion.div 
-                              animate={{ rotate: 360 }} 
-                              transition={{ duration: 1, repeat: Infinity, ease: "linear" }} 
-                              className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full" 
-                            />
-                          ) : (
-                            'Cast Vote & View Blueprint'
-                          )}
-                        </motion.button>
-                      </form>
-                      {status === 'error' && (
-                        <p className="text-red-500 text-xs">Something went wrong. Please try again.</p>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-
-                {step === 5 && (
-                  <motion.div
-                    key="step5"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="space-y-4 text-center py-6"
-                  >
-                    <div className="w-16 h-16 rounded-full bg-blue-50 border-2 border-blue-200 flex items-center justify-center mx-auto text-blue-600 shadow-sm">
-                      <CheckCircle2 className="w-10 h-10 animate-bounce" />
-                    </div>
-                    <h3 className="text-2xl font-black text-black">Vote Cast & Blueprint Unlocked!</h3>
-                    <p className="text-sm text-black font-semibold max-w-sm mx-auto leading-relaxed">
-                      Thank you! Your vote has been registered. If we reach <span className="text-blue-600 font-extrabold">100 votes</span> (currently at <span className="text-blue-600 font-black">53</span>), we will start building immediately. We've sent your custom blueprint to your email!
-                    </p>
-                    <div className="pt-2">
-                      <button 
-                        onClick={resetFunnel}
-                        className="text-xs font-bold text-black hover:text-blue-600 hover:border-blue-300 transition-all border-2 border-slate-100 bg-slate-50 px-4 py-2 rounded-xl cursor-pointer"
+            {/* Interactive Lead Generation Funnel Card */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={scaleIn}
+              className="max-w-xl mx-auto glass-panel bg-white border border-slate-200/80 p-6 md:p-8 shadow-xl shadow-slate-100 rounded-3xl relative overflow-hidden"
+            >
+              {/* Header step trackers */}
+              {step < 5 && (
+                <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
+                  <div className="flex items-center gap-2">
+                    {step > 1 && (
+                      <button
+                        onClick={handleBackStep}
+                        className="p-1 rounded-lg hover:bg-slate-50 transition-colors text-black hover:text-blue-600"
                       >
-                        Reset Diagnostic
+                        <ChevronLeft className="w-5 h-5" />
                       </button>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </motion.div>
-        </section>
-      </div>
+                    )}
+                    <span className="text-xs font-extrabold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-100/40">
+                      Step {step} of 4
+                    </span>
+                  </div>
+                  <div className="flex gap-1.5">
+                    {[1, 2, 3, 4].map(s => (
+                      <div
+                        key={s}
+                        className={`w-6 h-1 rounded-full transition-all duration-300 ${s <= step ? 'bg-blue-600' : 'bg-slate-100'}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="min-h-[220px] flex flex-col justify-center text-left">
+                <AnimatePresence custom={direction} mode="wait">
+                  {step === 1 && (
+                    <motion.div
+                      key="step1"
+                      custom={direction}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      className="space-y-4"
+                    >
+                      <h3 className="text-lg font-black text-black">What is your freelance discipline?</h3>
+                      <div className="grid grid-cols-2 gap-3 pt-2">
+                        {[
+                          { id: 'design', label: '🎨 Design / UI-UX' },
+                          { id: 'development', label: '💻 Development' },
+                          { id: 'writing', label: '✍️ Writing & Content' },
+                          { id: 'marketing', label: '📣 Marketing & Strategy' }
+                        ].map(option => (
+                          <button
+                            key={option.id}
+                            onClick={() => handleNextStep(option.id, setDiscipline)}
+                            className="p-4 rounded-2xl border-2 border-slate-100/80 text-left font-bold text-black hover:border-blue-600 hover:bg-blue-50/20 active:bg-blue-50/50 transition-all duration-200 text-sm md:text-base shadow-sm hover:shadow-[0_8px_25px_rgba(37,99,235,0.04)] cursor-pointer"
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {step === 2 && (
+                    <motion.div
+                      key="step2"
+                      custom={direction}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      className="space-y-4"
+                    >
+                      <h3 className="text-lg font-black text-black">What is your biggest onboarding bottleneck?</h3>
+                      <div className="grid grid-cols-1 gap-2.5 pt-2">
+                        {[
+                          { id: 'payments', label: '💸 Chasing upfront deposit payments' },
+                          { id: 'briefs', label: '📄 Getting clear brief briefs & answers' },
+                          { id: 'contracts', label: '✍️ Getting contract signatures back' },
+                          { id: 'assets', label: '📂 Hunting down client brand files & logos' }
+                        ].map(option => (
+                          <button
+                            key={option.id}
+                            onClick={() => handleNextStep(option.id, setBottleneck)}
+                            className="p-4 rounded-2xl border-2 border-slate-100/80 text-left font-bold text-black hover:border-blue-600 hover:bg-blue-50/20 active:bg-blue-50/50 transition-all duration-200 text-sm md:text-base w-full shadow-sm hover:shadow-[0_8px_25px_rgba(37,99,235,0.04)] cursor-pointer"
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {step === 3 && (
+                    <motion.div
+                      key="step3"
+                      custom={direction}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      className="space-y-4"
+                    >
+                      <h3 className="text-lg font-black text-black">How many clients do you onboard monthly?</h3>
+                      <div className="grid grid-cols-3 gap-3 pt-2">
+                        {[
+                          { id: '1-2', label: '1 - 2' },
+                          { id: '3-5', label: '3 - 5' },
+                          { id: '6+', label: '6 or more' }
+                        ].map(option => (
+                          <button
+                            key={option.id}
+                            onClick={() => handleNextStep(option.id, setVolume)}
+                            className="p-4 rounded-2xl border-2 border-slate-100/80 text-center font-black text-black hover:border-blue-600 hover:bg-blue-50/20 active:bg-blue-50/50 transition-all duration-200 text-base shadow-sm hover:shadow-[0_8px_25px_rgba(37,99,235,0.04)] cursor-pointer"
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {step === 4 && (
+                    <motion.div
+                      key="step4"
+                      custom={direction}
+                      variants={slideVariants}
+                      initial="enter"
+                      animate="center"
+                      exit="exit"
+                      className="space-y-6"
+                    >
+                      <div className="bg-blue-50/80 border border-blue-100 p-5 rounded-2xl text-left shadow-sm">
+                        <h4 className="font-black text-blue-600 text-lg mb-1.5 flex items-center gap-1.5">
+                          <span>⚡</span> Your Friction Report
+                        </h4>
+                        <p className="text-sm text-black font-semibold leading-relaxed">
+                          Based on onboarding <span className="text-blue-600 font-extrabold">{volume} clients</span> monthly, you are losing up to <span className="text-blue-600 font-extrabold underline decoration-blue-300 decoration-wavy underline-offset-2">{calculateHoursSaved()} hours</span> every month on administrative friction. Help us build the solution to eliminate this!
+                        </p>
+                      </div>
+
+                      <div className="space-y-4 text-left">
+                        <h3 className="text-sm md:text-base font-black text-black leading-tight">
+                          Cast your vote to build <span className="text-blue-600">HasaBoard</span>, unlock your custom <span className="text-blue-600">Blueprint</span>, & get 3 months free!
+                        </h3>
+                        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+                          <input
+                            type="email"
+                            required
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="you@email.com"
+                            disabled={status === 'loading'}
+                            className="flex-1 bg-slate-50 border-2 border-slate-200 rounded-xl px-4 py-3.5 text-black font-semibold placeholder-slate-400 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+                          />
+                          <motion.button
+                            type="submit"
+                            disabled={status === 'loading'}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            data-cursor="VOTE"
+                            className="bg-blue-600 text-white font-bold px-6 py-3.5 rounded-xl shadow-md hover:bg-blue-700 transition-colors disabled:opacity-70 flex items-center justify-center min-w-[170px] cursor-pointer"
+                          >
+                            {status === 'loading' ? (
+                              <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full"
+                              />
+                            ) : (
+                              'Cast Vote & View Blueprint'
+                            )}
+                          </motion.button>
+                        </form>
+                        {status === 'error' && (
+                          <p className="text-red-500 text-xs">Something went wrong. Please try again.</p>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {step === 5 && (
+                    <motion.div
+                      key="step5"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="space-y-4 text-center py-6"
+                    >
+                      <div className="w-16 h-16 rounded-full bg-blue-50 border-2 border-blue-200 flex items-center justify-center mx-auto text-blue-600 shadow-sm">
+                        <CheckCircle2 className="w-10 h-10 animate-bounce" />
+                      </div>
+                      <h3 className="text-2xl font-black text-black">Vote Cast & Blueprint Unlocked!</h3>
+                      <p className="text-sm text-black font-semibold max-w-sm mx-auto leading-relaxed">
+                        Thank you! Your vote has been registered. If we reach <span className="text-blue-600 font-extrabold">100 votes</span> (currently at <span className="text-blue-600 font-black">53</span>), we will start building immediately. We've sent your custom blueprint to your email!
+                      </p>
+                      <div className="pt-2">
+                        <button
+                          onClick={resetFunnel}
+                          className="text-xs font-bold text-black hover:text-blue-600 hover:border-blue-300 transition-all border-2 border-slate-100 bg-slate-50 px-4 py-2 rounded-xl cursor-pointer"
+                        >
+                          Reset Diagnostic
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          </section>
+        </div>
 
         {/* The Problem Section */}
         <section id="problem" className="py-24 border-t border-slate-100 bg-[#f8fafc]/50">
           <div className="max-w-[1400px] mx-auto relative px-6 w-full">
-            
+
             {/* DocuSeal Tester Simulator Widget - floats on the right, contextually aligned with Problem assessment details */}
             <motion.div
               initial="hidden"
@@ -671,7 +671,7 @@ export default function App() {
 
                 <div>
                   {signStatus === 'idle' && (
-                    <button 
+                    <button
                       onClick={handleSign}
                       data-cursor="SIGN AGREEMENT"
                       className="w-full border-2 border-dashed border-blue-200 hover:border-blue-400 bg-blue-50/10 text-blue-600 font-bold py-2.5 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
@@ -681,16 +681,16 @@ export default function App() {
                   )}
                   {signStatus === 'loading' && (
                     <div className="w-full bg-slate-50 border-2 border-slate-100 text-slate-500 py-2 rounded-xl flex items-center justify-center gap-2">
-                      <motion.div 
-                        animate={{ rotate: 360 }} 
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }} 
-                        className="w-3.5 h-3.5 border-2 border-slate-300 border-t-blue-600 rounded-full" 
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="w-3.5 h-3.5 border-2 border-slate-300 border-t-blue-600 rounded-full"
                       />
                       <span className="text-[10px] font-bold">Applying Signature...</span>
                     </div>
                   )}
                   {signStatus === 'success' && (
-                    <motion.div 
+                    <motion.div
                       initial={{ scale: 0.9, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       className="w-full bg-blue-50 border border-blue-200 text-blue-800 p-2.5 rounded-xl text-center space-y-1.5 animate-once"
@@ -704,7 +704,7 @@ export default function App() {
                       <span className="text-[8px] text-blue-600 font-semibold block uppercase tracking-wider mb-0.5">
                         Timestamp Secured 🔒
                       </span>
-                      <button 
+                      <button
                         onClick={() => setSignStatus('idle')}
                         className="text-[9px] text-blue-600 font-bold block hover:underline w-full text-center pt-1.5 border-t border-blue-200/40 cursor-pointer"
                       >
@@ -718,7 +718,7 @@ export default function App() {
 
             {/* Inner content grid wrapper */}
             <div className="max-w-4xl mx-auto">
-              <motion.div 
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
@@ -730,7 +730,7 @@ export default function App() {
                 <p className="text-slate-500 max-w-2xl mx-auto">We hear this from freelancers daily. We want to build HasaBoard to consolidate your stack into a single elegant workspace. Here is the friction we aim to eliminate:</p>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
@@ -745,8 +745,8 @@ export default function App() {
                   { icon: <MonitorSmartphone className="w-5 h-5 text-blue-600" />, title: "Unprofessional Impression", desc: "Sending five different links screams \"I'm winging it.\"" },
                   { icon: <Clock className="w-5 h-5 text-blue-600" />, title: "Hours Wasted Weekly", desc: "You lose 3-5 hours per client on administrative friction alone." }
                 ].map((item, i) => (
-                  <motion.div 
-                    key={i} 
+                  <motion.div
+                    key={i}
                     variants={fadeInUp}
                     whileHover={{ y: -4, boxShadow: '0 10px 35px -5px rgb(0,0,0,0.05)' }}
                     className="h-full"
@@ -768,7 +768,7 @@ export default function App() {
         {/* How It Works Section */}
         <section id="how-it-works" className="py-24 border-t border-slate-100">
           <div className="max-w-[1400px] mx-auto relative px-6 w-full">
-            
+
             {/* Secure File Vault Simulator Widget - floats on the left, contextually aligning with Step 4 (File Vault Upload) */}
             <motion.div
               initial="hidden"
@@ -809,7 +809,7 @@ export default function App() {
 
                 <div>
                   {vaultStatus === 'idle' && (
-                    <button 
+                    <button
                       onClick={handleVaultUpload}
                       className="w-full bg-slate-900 text-white font-bold py-2.5 rounded-xl hover:bg-black transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
                     >
@@ -823,7 +823,7 @@ export default function App() {
                         <span>75%</span>
                       </div>
                       <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
-                        <motion.div 
+                        <motion.div
                           initial={{ width: 0 }}
                           animate={{ width: "75%" }}
                           transition={{ duration: 1.5, ease: "easeInOut" }}
@@ -833,7 +833,7 @@ export default function App() {
                     </div>
                   )}
                   {vaultStatus === 'success' && (
-                    <motion.div 
+                    <motion.div
                       initial={{ scale: 0.9, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       className="w-full bg-amber-50 border border-amber-200 text-amber-900 p-2.5 rounded-xl text-center space-y-1.5"
@@ -844,7 +844,7 @@ export default function App() {
                       <div className="text-[9px] text-amber-700 font-medium leading-none mb-1">
                         Encrypted inside AES-256 vault.
                       </div>
-                      <button 
+                      <button
                         onClick={() => setVaultStatus('idle')}
                         className="text-[9px] text-amber-700 font-bold block hover:underline w-full text-center pt-1.5 border-t border-amber-200/40 cursor-pointer"
                       >
@@ -858,7 +858,7 @@ export default function App() {
 
             {/* Centered Content Wrapper */}
             <div className="max-w-3xl mx-auto">
-              <motion.div 
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
@@ -870,7 +870,7 @@ export default function App() {
                 <p className="text-slate-500 max-w-2xl mx-auto">Here is how HasaBoard will work once we build it. Help us shape this custom workflow by casting your vote:</p>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
@@ -884,8 +884,8 @@ export default function App() {
                   { step: "4", tag: "Assets", title: "File Vault Upload", desc: "Brand guidelines and logos uploaded to a secure vault. No WhatsApp attachments." },
                   { step: "5", tag: "Kickoff", title: "Project Begins", desc: "Client sees the roadmap. Status changes to 'in-progress.' You get notified." }
                 ].map((item, i) => (
-                  <motion.div 
-                    key={i} 
+                  <motion.div
+                    key={i}
                     variants={fadeInUp}
                     className="flex gap-6 items-start"
                   >
@@ -907,7 +907,7 @@ export default function App() {
         {/* Features Section */}
         <section id="features" className="py-24 border-t border-slate-100 bg-[#f8fafc]/50">
           <div className="max-w-[1400px] mx-auto relative px-6 w-full">
-            
+
             {/* WhatsApp Alert Hub Simulator Widget - floats on the right, contextually aligned with Row 2, Card 1 (WhatsApp Alerts) */}
             <motion.div
               initial="hidden"
@@ -942,7 +942,7 @@ export default function App() {
 
                 <div>
                   {whatsappStatus === 'idle' && (
-                    <button 
+                    <button
                       onClick={handleWhatsappSimulate}
                       data-cursor="TEST ALERTS"
                       className="w-full bg-emerald-600 text-white font-bold py-2.5 rounded-xl hover:bg-emerald-700 transition-all shadow-sm hover:shadow-[0_4px_15px_rgba(16,185,129,0.2)] flex items-center justify-center gap-1.5 cursor-pointer text-[11px]"
@@ -952,16 +952,16 @@ export default function App() {
                   )}
                   {whatsappStatus === 'loading' && (
                     <div className="w-full bg-slate-50 border-2 border-slate-100 text-slate-500 py-2 rounded-xl flex items-center justify-center gap-2">
-                      <motion.div 
-                        animate={{ rotate: 360 }} 
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }} 
-                        className="w-3.5 h-3.5 border-2 border-slate-300 border-t-emerald-600 rounded-full" 
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="w-3.5 h-3.5 border-2 border-slate-300 border-t-emerald-600 rounded-full"
                       />
                       <span className="text-[10px] font-bold">Routing Alert...</span>
                     </div>
                   )}
                   {whatsappStatus === 'success' && (
-                    <motion.div 
+                    <motion.div
                       initial={{ scale: 0.9, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       className="w-full bg-emerald-50 border border-emerald-250 text-emerald-950 p-2.5 rounded-xl text-left space-y-1.5"
@@ -973,7 +973,7 @@ export default function App() {
                       <p className="text-[10px] text-slate-800 leading-tight">
                         <strong className="text-emerald-800">HasaBoard:</strong> Rohan signed contract & paid ₹15,000 advance. Project kicked off automatically! 🚀
                       </p>
-                      <button 
+                      <button
                         onClick={() => setWhatsappStatus('idle')}
                         className="text-[9px] text-emerald-600 font-bold block hover:underline w-full text-center pt-1.5 border-t border-emerald-200/40 cursor-pointer"
                       >
@@ -987,7 +987,7 @@ export default function App() {
 
             {/* Inner Content Grid */}
             <div className="max-w-4xl mx-auto">
-              <motion.div 
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
@@ -998,7 +998,7 @@ export default function App() {
                 <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">Everything you need to look professional.</h2>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
@@ -1013,8 +1013,8 @@ export default function App() {
                   { icon: <Mail className="w-5 h-5 text-blue-600" />, title: "Automated Emails", desc: "Receipt confirmations and welcome messages sent automatically." },
                   { icon: <Star className="w-5 h-5 text-blue-600" />, title: "Auto Testimonials", desc: "7 days after kickoff, clients receive a feedback request automatically." }
                 ].map((item, i) => (
-                  <motion.div 
-                    key={i} 
+                  <motion.div
+                    key={i}
                     variants={fadeInUp}
                     whileHover={{ y: -4, boxShadow: '0 10px 35px -5px rgb(0,0,0,0.05)' }}
                     className="h-full"
@@ -1043,9 +1043,9 @@ export default function App() {
                   <div className="w-3 h-3 rounded-full bg-yellow-400" />
                   <div className="w-3 h-3 rounded-full bg-green-400" />
                 </div>
-                <img 
-                  src="/dashboard_mockup.png" 
-                  alt="HasaBoard Freelance Onboarding Dashboard Mockup" 
+                <img
+                  src="/dashboard_mockup.png"
+                  alt="HasaBoard Freelance Onboarding Dashboard Mockup"
                   className="w-full h-auto rounded-2xl border border-slate-100 mt-2"
                 />
               </motion.div>
@@ -1056,7 +1056,7 @@ export default function App() {
         {/* Comparison Section */}
         <section id="comparison" className="py-24 border-t border-slate-100">
           <div className="max-w-[1400px] mx-auto relative px-6 w-full">
-            
+
             {/* Workspace Theme Customizer Widget - floats on the left */}
             <motion.div
               initial="hidden"
@@ -1096,39 +1096,35 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className={`p-3 rounded-2xl border-2 transition-all duration-300 text-left ${
-                  activeTheme === 'blue' ? 'border-blue-100/60 bg-blue-50/20' :
-                  activeTheme === 'purple' ? 'border-purple-100/60 bg-purple-50/20' :
-                  activeTheme === 'emerald' ? 'border-emerald-100/60 bg-emerald-50/20' :
-                  'border-indigo-100/60 bg-indigo-50/20'
-                }`}>
+                <div className={`p-3 rounded-2xl border-2 transition-all duration-300 text-left ${activeTheme === 'blue' ? 'border-blue-100/60 bg-blue-50/20' :
+                    activeTheme === 'purple' ? 'border-purple-100/60 bg-purple-50/20' :
+                      activeTheme === 'emerald' ? 'border-emerald-100/60 bg-emerald-50/20' :
+                        'border-indigo-100/60 bg-indigo-50/20'
+                  }`}>
                   <div className="flex justify-between items-center mb-2">
-                    <span className={`text-[9px] font-black uppercase tracking-wider ${
-                      activeTheme === 'blue' ? 'text-blue-600' :
-                      activeTheme === 'purple' ? 'text-purple-600' :
-                      activeTheme === 'emerald' ? 'text-emerald-600' :
-                      'text-indigo-600'
-                    }`}>
+                    <span className={`text-[9px] font-black uppercase tracking-wider ${activeTheme === 'blue' ? 'text-blue-600' :
+                        activeTheme === 'purple' ? 'text-purple-600' :
+                          activeTheme === 'emerald' ? 'text-emerald-600' :
+                            'text-indigo-600'
+                      }`}>
                       Client Portal
                     </span>
-                    <div className={`w-1.5 h-1.5 rounded-full ${
-                      activeTheme === 'blue' ? 'bg-blue-600 animate-pulse' :
-                      activeTheme === 'purple' ? 'bg-purple-600 animate-pulse' :
-                      activeTheme === 'emerald' ? 'bg-emerald-600 animate-pulse' :
-                      'bg-indigo-600 animate-pulse'
-                    }`} />
+                    <div className={`w-1.5 h-1.5 rounded-full ${activeTheme === 'blue' ? 'bg-blue-600 animate-pulse' :
+                        activeTheme === 'purple' ? 'bg-purple-600 animate-pulse' :
+                          activeTheme === 'emerald' ? 'bg-emerald-600 animate-pulse' :
+                            'bg-indigo-600 animate-pulse'
+                      }`} />
                   </div>
                   <div className="space-y-0.5">
                     <div className="text-[10px] font-black text-black">Aria Design Studio</div>
                     <div className="text-[8px] text-slate-400 font-semibold">Project: Mobile App V2</div>
                   </div>
                   <div className="mt-3">
-                    <div className={`w-full py-1.5 rounded-lg text-[9px] font-black text-center text-white transition-all duration-300 ${
-                      activeTheme === 'blue' ? 'bg-blue-600 hover:bg-blue-700 shadow-sm shadow-blue-100' :
-                      activeTheme === 'purple' ? 'bg-purple-600 hover:bg-purple-700 shadow-sm shadow-purple-100' :
-                      activeTheme === 'emerald' ? 'bg-emerald-600 hover:bg-emerald-700 shadow-sm shadow-emerald-100' :
-                      'bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-100'
-                    }`}>
+                    <div className={`w-full py-1.5 rounded-lg text-[9px] font-black text-center text-white transition-all duration-300 ${activeTheme === 'blue' ? 'bg-blue-600 hover:bg-blue-700 shadow-sm shadow-blue-100' :
+                        activeTheme === 'purple' ? 'bg-purple-600 hover:bg-purple-700 shadow-sm shadow-purple-100' :
+                          activeTheme === 'emerald' ? 'bg-emerald-600 hover:bg-emerald-700 shadow-sm shadow-emerald-100' :
+                            'bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-100'
+                      }`}>
                       Review & Sign
                     </div>
                   </div>
@@ -1138,7 +1134,7 @@ export default function App() {
 
             {/* Existing Comparison Content centered */}
             <div className="max-w-4xl mx-auto text-center">
-              <motion.h2 
+              <motion.h2
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -1147,7 +1143,7 @@ export default function App() {
               >
                 The Old Way vs. The HasaBoard Vision
               </motion.h2>
-              <motion.div 
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -1187,7 +1183,7 @@ export default function App() {
         {/* Pricing Section */}
         <section id="pricing" className="py-24 border-t border-slate-100 bg-[#f8fafc]/50">
           <div className="max-w-[1400px] mx-auto relative px-6 w-full">
-            
+
             {/* Indian Freelancer Tax & Retainer Estimator Widget - floats on the right */}
             <motion.div
               initial="hidden"
@@ -1214,12 +1210,12 @@ export default function App() {
                     <span>Project Budget</span>
                     <span className="font-black text-black">₹{projectFee.toLocaleString('en-IN')}</span>
                   </div>
-                  <input 
-                    type="range" 
-                    min="10000" 
-                    max="200000" 
+                  <input
+                    type="range"
+                    min="10000"
+                    max="200000"
                     step="5000"
-                    value={projectFee} 
+                    value={projectFee}
                     onChange={(e) => setProjectFee(Number(e.target.value))}
                     className="w-full accent-blue-600 h-1 bg-slate-100 rounded-lg cursor-pointer"
                   />
@@ -1228,13 +1224,12 @@ export default function App() {
                       <button
                         key={fee}
                         onClick={() => setProjectFee(fee)}
-                        className={`flex-1 py-1 rounded-lg text-[9px] font-black border transition-all cursor-pointer ${
-                          projectFee === fee 
-                            ? 'bg-blue-600 border-blue-600 text-white shadow-sm shadow-blue-100' 
+                        className={`flex-1 py-1 rounded-lg text-[9px] font-black border transition-all cursor-pointer ${projectFee === fee
+                            ? 'bg-blue-600 border-blue-600 text-white shadow-sm shadow-blue-100'
                             : 'bg-white border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600'
-                        }`}
+                          }`}
                       >
-                        ₹{(fee/1000).toFixed(0)}K
+                        ₹{(fee / 1000).toFixed(0)}K
                       </button>
                     ))}
                   </div>
@@ -1263,7 +1258,7 @@ export default function App() {
 
             {/* Existing Pricing Content centered */}
             <div className="max-w-lg mx-auto text-center">
-              <motion.div 
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -1275,7 +1270,7 @@ export default function App() {
                 <p className="text-slate-500">Vote now to lock in 3 months of free access and a permanent low rate if built.</p>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -1289,7 +1284,7 @@ export default function App() {
                   <span className="text-5xl font-extrabold text-slate-900">Free</span>
                 </div>
                 <p className="text-sm text-slate-500 mb-8">for 3 months, then ₹499/mo locked forever if built.</p>
-                
+
                 <ul className="space-y-4 mb-8">
                   {[
                     "Unlimited onboarding links",
@@ -1305,10 +1300,10 @@ export default function App() {
                     </li>
                   ))}
                 </ul>
-                <motion.a 
+                <motion.a
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  href="#waitlist" 
+                  href="#waitlist"
                   className="block w-full bg-blue-600 text-white font-bold text-center py-4 rounded-xl shadow-md hover:bg-blue-700 transition-colors"
                 >
                   Vote to Lock in Early Access
@@ -1321,7 +1316,7 @@ export default function App() {
         {/* Waitlist Section (Anchored Funnel) */}
         <section id="waitlist" className="py-32 border-t border-slate-100">
           <div className="max-w-[1400px] mx-auto relative px-6 w-full">
-            
+
             {/* Client Feedback Rating Card Widget - floats on the left */}
             <motion.div
               initial="hidden"
@@ -1352,9 +1347,9 @@ export default function App() {
                         onClick={() => setClientRating(star)}
                         className="text-amber-400 hover:scale-110 active:scale-95 transition-all duration-200 cursor-pointer"
                       >
-                        <Star 
-                          className="w-4.5 h-4.5" 
-                          fill={star <= clientRating ? "currentColor" : "none"} 
+                        <Star
+                          className="w-4.5 h-4.5"
+                          fill={star <= clientRating ? "currentColor" : "none"}
                           strokeWidth={1.5}
                         />
                       </button>
@@ -1375,19 +1370,19 @@ export default function App() {
                       <p className="text-[9px] text-slate-600 font-bold italic leading-relaxed">
                         "{
                           clientRating === 5 ? "The absolute smoothest onboarding I've ever experienced. Paid my deposit via UPI in 30 seconds!" :
-                          clientRating === 4 ? "Really professional process. Highly recommend this over messy WhatsApp chats." :
-                          clientRating === 3 ? "Signing and paying advance was easy. Good overall client flow." :
-                          clientRating === 2 ? "It was okay, but I prefer simple emails." :
-                          "Too many steps. Let me just send a bank transfer."
+                            clientRating === 4 ? "Really professional process. Highly recommend this over messy WhatsApp chats." :
+                              clientRating === 3 ? "Signing and paying advance was easy. Good overall client flow." :
+                                clientRating === 2 ? "It was okay, but I prefer simple emails." :
+                                  "Too many steps. Let me just send a bank transfer."
                         }"
                       </p>
                       <div className="text-[8px] text-slate-400 font-extrabold pt-1 border-t border-slate-150">
                         — {
                           clientRating === 5 ? "Rohan S. (Founder, TechNext)" :
-                          clientRating === 4 ? "Nikita P. (VP Product, Aria)" :
-                          clientRating === 3 ? "Amit K. (Product Lead)" :
-                          clientRating === 2 ? "Suresh M. (Business Owner)" :
-                          "Vikram G. (Traditional Client)"
+                            clientRating === 4 ? "Nikita P. (VP Product, Aria)" :
+                              clientRating === 3 ? "Amit K. (Product Lead)" :
+                                clientRating === 2 ? "Suresh M. (Business Owner)" :
+                                  "Vikram G. (Traditional Client)"
                         }
                       </div>
                     </motion.div>
@@ -1398,7 +1393,7 @@ export default function App() {
 
             {/* Existing Waitlist Content centered */}
             <div className="max-w-2xl mx-auto text-center">
-              <motion.div 
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -1406,7 +1401,7 @@ export default function App() {
                 className="mb-8"
               >
                 <div className="flex justify-center -space-x-2 mb-4">
-                  {['SK','RP','AM','VT'].map((initial, i) => (
+                  {['SK', 'RP', 'AM', 'VT'].map((initial, i) => (
                     <div key={i} className="w-10 h-10 rounded-full bg-slate-200 border-2 border-white flex items-center justify-center text-xs font-bold text-slate-700">
                       {initial}
                     </div>
@@ -1420,7 +1415,7 @@ export default function App() {
                 </p>
               </motion.div>
 
-              <motion.div 
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -1433,7 +1428,7 @@ export default function App() {
                 <p className="text-black font-semibold mb-8 max-w-md mx-auto">
                   We're gathering input from India's freelance community to co-design this product. Cast your vote by analyzing your onboarding friction at the top of the page.
                 </p>
-                
+
                 <motion.button
                   onClick={() => {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1491,7 +1486,7 @@ export default function App() {
       </AnimatePresence>
 
       {/* Mouse Trailing Spotlight Follower */}
-      <div 
+      <div
         className="pointer-events-none fixed inset-0 z-30 opacity-60 transition-opacity duration-300 hidden md:block"
         style={{
           background: `radial-gradient(600px at ${mousePos.x}px ${mousePos.y}px, rgba(37, 99, 235, 0.035), transparent 80%)`
@@ -1529,8 +1524,8 @@ export default function App() {
       {/* Elastic Custom Cursor Ring Follower */}
       <motion.div
         className="hidden md:block fixed top-0 left-0 rounded-full border-2 border-blue-500/40 pointer-events-none z-[9999]"
-        animate={{ 
-          x: mousePos.x - (isHovered ? 28 : 14), 
+        animate={{
+          x: mousePos.x - (isHovered ? 28 : 14),
           y: mousePos.y - (isHovered ? 28 : 14),
           width: isHovered ? 56 : 28,
           height: isHovered ? 56 : 28,
@@ -1549,9 +1544,9 @@ export default function App() {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ type: 'spring', stiffness: 350, damping: 22 }}
             className="hidden md:block fixed top-0 left-0 bg-blue-600 border border-blue-500 text-white text-[9px] font-black tracking-wider uppercase px-2.5 py-1 rounded-full shadow-[0_4px_12px_rgba(37,99,235,0.2)] pointer-events-none z-[9999]"
-            style={{ 
-              x: mousePos.x + 18, 
-              y: mousePos.y + 18 
+            style={{
+              x: mousePos.x + 18,
+              y: mousePos.y + 18
             }}
           >
             {cursorText}
