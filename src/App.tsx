@@ -232,16 +232,26 @@ export default function App() {
     e.preventDefault();
     setStatus('loading');
 
+    // 1. Frontend validation: Validate email format & length boundaries
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const sanitizedEmail = email.trim();
+    if (!emailRegex.test(sanitizedEmail) || sanitizedEmail.length > 150) {
+      console.warn('⚠️ Invalid email pattern or length boundaries.');
+      setStatus('error');
+      return;
+    }
+
     const leadData = {
-      email,
+      email: sanitizedEmail,
       discipline,
       bottleneck,
       volume,
       hoursSaved: calculateHoursSaved(),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      secret_token: import.meta.env.VITE_LEADS_SECRET_TOKEN || 'hasaboard_waitlist_secure_2026'
     };
 
-    // 1. Log lead details to localStorage as a failsafe backup
+    // 2. Log lead details to localStorage as a failsafe backup
     try {
       const activeWaitlist = JSON.parse(localStorage.getItem('hasaboard_waitlist') || '[]');
       activeWaitlist.push(leadData);
