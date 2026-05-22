@@ -96,7 +96,12 @@ const slideVariants = {
 };
 
 // --- CONFIGURATION FOR AD CAMPAIGN EMAIL CAPTURE ---
-// Paste your Formspree Form ID here as a fallback (e.g. 'xgejywop'), or define VITE_FORMSPREE_FORM_ID in a .env file.
+// Option A: Google Sheet Web App URL (Unlimited & 100% Free)
+// E.g. 'https://script.google.com/macros/s/AKfycb.../exec' or define VITE_GOOGLE_SHEETS_URL in your .env
+const GOOGLE_SHEETS_URL_FALLBACK = '';
+
+// Option B: Formspree Form ID (50 leads/month free)
+// E.g. 'xgejywop' or define VITE_FORMSPREE_FORM_ID in your .env
 const FORMSPREE_FORM_ID_FALLBACK = '';
 
 export default function App() {
@@ -249,42 +254,63 @@ export default function App() {
       console.warn('LocalStorage backup failed:', err);
     }
 
-    // 2. Fetch Formspree ID from Env or Fallback constant
-    const formId = import.meta.env.VITE_FORMSPREE_FORM_ID || FORMSPREE_FORM_ID_FALLBACK;
+    const googleSheetsUrl = import.meta.env.VITE_GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL_FALLBACK;
+    const formspreeFormId = import.meta.env.VITE_FORMSPREE_FORM_ID || FORMSPREE_FORM_ID_FALLBACK;
 
-    // 3. If no Form ID is configured, simulate success using the localStorage backup only
-    if (!formId || formId.trim() === '') {
-      console.warn(
-        'Formspree Form ID is not configured. Saving exclusively to localStorage for local validation.'
-      );
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setStatus('success');
-      setStep(5);
+    // 2. Prioritize Google Sheets Web App if configured (100% Free & Unlimited leads)
+    if (googleSheetsUrl && googleSheetsUrl.trim() !== '') {
+      try {
+        await fetch(googleSheetsUrl.trim(), {
+          method: 'POST',
+          mode: 'no-cors', // Required to bypass preflight CORS redirection limits in Google Apps Script
+          headers: {
+            'Content-Type': 'text/plain'
+          },
+          body: JSON.stringify(leadData)
+        });
+        setStatus('success');
+        setStep(5);
+        return;
+      } catch (error) {
+        console.error('Google Sheets submission failed:', error);
+        setStatus('error');
+        return;
+      }
+    }
+
+    // 3. Fallback to Formspree if configured (50 free leads/month)
+    if (formspreeFormId && formspreeFormId.trim() !== '') {
+      try {
+        const response = await fetch(`https://formspree.io/f/${formspreeFormId.trim()}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(leadData)
+        });
+
+        if (response.ok) {
+          setStatus('success');
+          setStep(5);
+        } else {
+          console.error('Formspree submission returned error status:', response.status);
+          setStatus('error');
+        }
+      } catch (error) {
+        console.error('Network error during Formspree submission:', error);
+        setStatus('error');
+      }
       return;
     }
 
-    // 4. Submit to Formspree API
-    try {
-      const response = await fetch(`https://formspree.io/f/${formId.trim()}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(leadData)
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        setStep(5);
-      } else {
-        console.error('Formspree submission returned error status:', response.status);
-        setStatus('error');
-      }
-    } catch (error) {
-      console.error('Network error during Formspree submission:', error);
-      setStatus('error');
-    }
+    // 4. Default Fallback: Simulate success if nothing is configured
+    console.warn(
+      'No active API capture (Google Sheet or Formspree) is configured. Leads are saving exclusively to localStorage.'
+    );
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    setStatus('success');
+    setStep(5);
   };
 
   const resetFunnel = () => {
