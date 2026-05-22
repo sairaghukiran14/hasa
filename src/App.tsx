@@ -96,13 +96,9 @@ const slideVariants = {
 };
 
 // --- CONFIGURATION FOR AD CAMPAIGN EMAIL CAPTURE ---
-// Option A: Google Sheet Web App URL (Unlimited & 100% Free)
+// Google Sheet Web App URL (Unlimited & 100% Free)
 // E.g. 'https://script.google.com/macros/s/AKfycb.../exec' or define VITE_GOOGLE_SHEETS_URL in your .env
 const GOOGLE_SHEETS_URL_FALLBACK = '';
-
-// Option B: Formspree Form ID (50 leads/month free)
-// E.g. 'xgejywop' or define VITE_FORMSPREE_FORM_ID in your .env
-const FORMSPREE_FORM_ID_FALLBACK = '';
 
 export default function App() {
   // Funnel State
@@ -255,9 +251,8 @@ export default function App() {
     }
 
     const googleSheetsUrl = import.meta.env.VITE_GOOGLE_SHEETS_URL || GOOGLE_SHEETS_URL_FALLBACK;
-    const formspreeFormId = import.meta.env.VITE_FORMSPREE_FORM_ID || FORMSPREE_FORM_ID_FALLBACK;
 
-    // 2. Prioritize Google Sheets Web App if configured (100% Free & Unlimited leads)
+    // 2. Submit to Google Sheets Web App if configured (100% Free & Unlimited leads)
     if (googleSheetsUrl && googleSheetsUrl.trim() !== '') {
       try {
         await fetch(googleSheetsUrl.trim(), {
@@ -278,35 +273,9 @@ export default function App() {
       }
     }
 
-    // 3. Fallback to Formspree if configured (50 free leads/month)
-    if (formspreeFormId && formspreeFormId.trim() !== '') {
-      try {
-        const response = await fetch(`https://formspree.io/f/${formspreeFormId.trim()}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify(leadData)
-        });
-
-        if (response.ok) {
-          setStatus('success');
-          setStep(5);
-        } else {
-          console.error('Formspree submission returned error status:', response.status);
-          setStatus('error');
-        }
-      } catch (error) {
-        console.error('Network error during Formspree submission:', error);
-        setStatus('error');
-      }
-      return;
-    }
-
-    // 4. Default Fallback: Simulate success if nothing is configured
+    // 3. Default Fallback: Simulate success if Google Sheet URL is not configured
     console.warn(
-      'No active API capture (Google Sheet or Formspree) is configured. Leads are saving exclusively to localStorage.'
+      'Google Sheets URL is not configured. Leads are saving exclusively to localStorage.'
     );
     await new Promise(resolve => setTimeout(resolve, 1500));
     setStatus('success');
@@ -1160,22 +1129,22 @@ export default function App() {
                 </div>
 
                 <div className={`p-3 rounded-2xl border-2 transition-all duration-300 text-left ${activeTheme === 'blue' ? 'border-blue-100/60 bg-blue-50/20' :
-                    activeTheme === 'purple' ? 'border-purple-100/60 bg-purple-50/20' :
-                      activeTheme === 'emerald' ? 'border-emerald-100/60 bg-emerald-50/20' :
-                        'border-indigo-100/60 bg-indigo-50/20'
+                  activeTheme === 'purple' ? 'border-purple-100/60 bg-purple-50/20' :
+                    activeTheme === 'emerald' ? 'border-emerald-100/60 bg-emerald-50/20' :
+                      'border-indigo-100/60 bg-indigo-50/20'
                   }`}>
                   <div className="flex justify-between items-center mb-2">
                     <span className={`text-[9px] font-black uppercase tracking-wider ${activeTheme === 'blue' ? 'text-blue-600' :
-                        activeTheme === 'purple' ? 'text-purple-600' :
-                          activeTheme === 'emerald' ? 'text-emerald-600' :
-                            'text-indigo-600'
+                      activeTheme === 'purple' ? 'text-purple-600' :
+                        activeTheme === 'emerald' ? 'text-emerald-600' :
+                          'text-indigo-600'
                       }`}>
                       Client Portal
                     </span>
                     <div className={`w-1.5 h-1.5 rounded-full ${activeTheme === 'blue' ? 'bg-blue-600 animate-pulse' :
-                        activeTheme === 'purple' ? 'bg-purple-600 animate-pulse' :
-                          activeTheme === 'emerald' ? 'bg-emerald-600 animate-pulse' :
-                            'bg-indigo-600 animate-pulse'
+                      activeTheme === 'purple' ? 'bg-purple-600 animate-pulse' :
+                        activeTheme === 'emerald' ? 'bg-emerald-600 animate-pulse' :
+                          'bg-indigo-600 animate-pulse'
                       }`} />
                   </div>
                   <div className="space-y-0.5">
@@ -1184,9 +1153,9 @@ export default function App() {
                   </div>
                   <div className="mt-3">
                     <div className={`w-full py-1.5 rounded-lg text-[9px] font-black text-center text-white transition-all duration-300 ${activeTheme === 'blue' ? 'bg-blue-600 hover:bg-blue-700 shadow-sm shadow-blue-100' :
-                        activeTheme === 'purple' ? 'bg-purple-600 hover:bg-purple-700 shadow-sm shadow-purple-100' :
-                          activeTheme === 'emerald' ? 'bg-emerald-600 hover:bg-emerald-700 shadow-sm shadow-emerald-100' :
-                            'bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-100'
+                      activeTheme === 'purple' ? 'bg-purple-600 hover:bg-purple-700 shadow-sm shadow-purple-100' :
+                        activeTheme === 'emerald' ? 'bg-emerald-600 hover:bg-emerald-700 shadow-sm shadow-emerald-100' :
+                          'bg-indigo-600 hover:bg-indigo-700 shadow-sm shadow-indigo-100'
                       }`}>
                       Review & Sign
                     </div>
@@ -1288,8 +1257,8 @@ export default function App() {
                         key={fee}
                         onClick={() => setProjectFee(fee)}
                         className={`flex-1 py-1 rounded-lg text-[9px] font-black border transition-all cursor-pointer ${projectFee === fee
-                            ? 'bg-blue-600 border-blue-600 text-white shadow-sm shadow-blue-100'
-                            : 'bg-white border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600'
+                          ? 'bg-blue-600 border-blue-600 text-white shadow-sm shadow-blue-100'
+                          : 'bg-white border-slate-200 text-slate-600 hover:border-blue-400 hover:text-blue-600'
                           }`}
                       >
                         ₹{(fee / 1000).toFixed(0)}K
