@@ -95,6 +95,10 @@ const slideVariants = {
   })
 };
 
+// --- CONFIGURATION FOR AD CAMPAIGN EMAIL CAPTURE ---
+// Paste your Formspree Form ID here as a fallback (e.g. 'xgejywop'), or define VITE_FORMSPREE_FORM_ID in a .env file.
+const FORMSPREE_FORM_ID_FALLBACK = '';
+
 export default function App() {
   // Funnel State
   const [step, setStep] = useState(1);
@@ -236,16 +240,49 @@ export default function App() {
       timestamp: new Date().toISOString()
     };
 
+    // 1. Log lead details to localStorage as a failsafe backup
     try {
-      // Log lead details to localStorage for instant validation
       const activeWaitlist = JSON.parse(localStorage.getItem('hasaboard_waitlist') || '[]');
       activeWaitlist.push(leadData);
       localStorage.setItem('hasaboard_waitlist', JSON.stringify(activeWaitlist));
+    } catch (err) {
+      console.warn('LocalStorage backup failed:', err);
+    }
 
+    // 2. Fetch Formspree ID from Env or Fallback constant
+    const formId = import.meta.env.VITE_FORMSPREE_FORM_ID || FORMSPREE_FORM_ID_FALLBACK;
+
+    // 3. If no Form ID is configured, simulate success using the localStorage backup only
+    if (!formId || formId.trim() === '') {
+      console.warn(
+        'Formspree Form ID is not configured. Saving exclusively to localStorage for local validation.'
+      );
       await new Promise(resolve => setTimeout(resolve, 1500));
       setStatus('success');
       setStep(5);
+      return;
+    }
+
+    // 4. Submit to Formspree API
+    try {
+      const response = await fetch(`https://formspree.io/f/${formId.trim()}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(leadData)
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setStep(5);
+      } else {
+        console.error('Formspree submission returned error status:', response.status);
+        setStatus('error');
+      }
     } catch (error) {
+      console.error('Network error during Formspree submission:', error);
       setStatus('error');
     }
   };
