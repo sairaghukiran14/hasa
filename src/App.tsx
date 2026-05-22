@@ -667,7 +667,7 @@ export default function App() {
                       </div>
                       <h3 className="text-2xl font-black text-black">Vote Cast & Blueprint Unlocked!</h3>
                       <p className="text-sm text-black font-semibold max-w-sm mx-auto leading-relaxed">
-                        Thank you! Your vote has been registered. If we reach <span className="text-blue-600 font-extrabold">100 votes</span> (currently at <span className="text-blue-600 font-black">53</span>), we will start building immediately. We've sent your custom blueprint to your email!
+                        Thank you! Your vote has been registered. Once we reach our target community launch interest, we will begin development immediately. We've sent your custom blueprint to your email!
                       </p>
                       <div className="pt-2">
                         <button
